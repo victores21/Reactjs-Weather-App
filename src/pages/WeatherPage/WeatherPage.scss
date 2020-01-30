@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow&display=swap');
+
+*{
+    font-family: 'Barlow', sans-serif;
+
+}
+.container_page{
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    width: 100%;
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgb(0, 82, 107) 0%, rgb(0, 45, 59) 90% );
+
+
+    & .weather_page{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        height: 30rem;
+        width: 50rem;
+        background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(0,107,141,1) 0%, rgba(0,69,91,1) 90% );
+        grid-template-areas: "weather_left weather_right"
+                             "weather_bottom weather_bottom";
+        padding: 1rem;
+        color: #fff;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        margin: 0 auto;
+        position: relative;
+        top:8rem;
+
+        & .weather_left{
+            grid-area: weather_left;
+            text-align: start;
+
+            & .weather_location{
+                font-size: 30px;
+            }
+
+            & .weather_date{
+                font-size: 20px;
+            }
+
+            & .weather_weather{
+                font-size: 100px;
+                padding-top: 1rem;
+                color:  #2ca8dc;
+            }
+
+
+
+        }
+
+        & .weather_right{
+            grid-area: weather_right;
+            text-align: end;
+
+            & .weather_max_temp{
+                font-size: 120px;
+
+                & p{
+                    padding: 0px;
+                }
+            }
+
+            & .weather_min_temp{
+                font-size: 30px;
+            }
+        }
+
+        & .weather_bottom{
+            grid-area: weather_bottom;
+            padding-top: 2rem;
+        }
+    }
+}

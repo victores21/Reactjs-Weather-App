@@ -8,13 +8,12 @@ const WeatherCard = () => {
         data: null,
         loading: true
     })
-    const place = "bucaramanga";
+    const place = "Bucaramanga";
     const fetchData = async () => {
 
         const query = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=4b4754a65698bacce3396cc517e79381`;
         const req = await fetch(query);
         const data = await req.json();
-
         let newState = []
         for (let i = 0; i < data.list.length; i++) {
             if (i % 8 === 0) {
@@ -22,18 +21,17 @@ const WeatherCard = () => {
             }
         }
 
-        setWeather({ data: newState, loading: false })
+        setWeather({ data: newState, dataFull: data, loading: false })
 
     }
 
     useEffect(() => {
         fetchData();
     }, [])
-
+    console.log(weather.dataFull)
     if (weather.loading === true) {
         return "Loading...";
     }
-
     if (weather.loading === false) {
         const weatherData = weather.data;
         //Date
@@ -62,8 +60,7 @@ const WeatherCard = () => {
 
         return (
             <>
-                <div className="container">
-                    <p>Buaramanga</p>
+                <div className="container_card">
                     {weatherData.map((weatherDay, index) =>
                         <div className="weather_card" key={weatherDay.dt}>
                             <div className="day">
