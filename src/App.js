@@ -14,8 +14,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path="/" component={WeatherCard} />
-          <Route exact path="/we" component={WeatherPage} />
+          <Route exact path="/" component={WeatherPage} />
         </Switch>
 
       </Router>

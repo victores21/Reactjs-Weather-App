@@ -44,7 +44,18 @@
             & .weather_weather{
                 font-size: 100px;
                 padding-top: 1rem;
-                color:  #2ca8dc;
+                
+                & .fa-sun{
+                    color: rgb(241, 241, 0);
+                }
+    
+                & .fa-cloud-showers-heavy{
+                    color: #2ca8dc;
+                }
+    
+                & .fa-cloud-sun{
+                    color: rgb(242, 255, 61);
+                }
             }
 
 

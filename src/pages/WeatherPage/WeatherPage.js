@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import "./WeatherPage.css";
+import * as moment from 'moment';
+
+
 
 const WeatherPage = () => {
-
+    let now = moment().format('LL');
+    console.log(now);
     const [weather, setWeather] = useState({
         data: null,
         loading: true
     })
-    const place = "new york";
+    const place = "Bucaramanga";
     const fetchData = async () => {
 
         const query = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=4b4754a65698bacce3396cc517e79381`;
@@ -28,7 +32,6 @@ const WeatherPage = () => {
     useEffect(() => {
         fetchData();
     }, [])
-
 
     const getIcon = (dayWeather) => {
         if (dayWeather === "Clear") {
@@ -57,7 +60,7 @@ const WeatherPage = () => {
                         <p>{weather.dataFull.city.name}, {weather.dataFull.city.country}</p>
                     </div>
                     <div className="weather_date">
-                        <p>{weatherData[0].dt_txt}</p>
+                        <p>{now}</p>
                     </div>
                     <div className="weather_weather">
                         <i className={getIcon(weatherData[0].weather[0].main)}></i>
