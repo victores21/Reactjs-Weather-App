@@ -8,7 +8,7 @@ const WeatherCard = () => {
         data: null,
         loading: true
     })
-    const place = "boston";
+    const place = "bucaramanga";
     const fetchData = async () => {
 
         const query = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=4b4754a65698bacce3396cc517e79381`;
