@@ -8,7 +8,7 @@ const WeatherCard = () => {
         data: null,
         loading: true
     })
-    const place = "Valencia";
+    const place = "Adelaide";
     const fetchData = async () => {
 
         const query = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=4b4754a65698bacce3396cc517e79381`;
@@ -39,32 +39,27 @@ const WeatherCard = () => {
         //Date
 
         const getDay = (newDay) => {
-
             const dayDate = new Date().getDay();
             const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
             const day = days[(dayDate + newDay) % 7];
             return day;
-
         }
 
-
+        console.log(weatherData)
         //Icon
-        let weatherIcon = [];
-        let icon = "";
-        for (let i = 0; i < weatherData.length; i++) {
-            weatherIcon.push(weatherData[i].weather[0].main);
+        const getIcon = () => {
+            for (let i = 0; i < weatherData.length; i++) {
+                if (weatherData[i].weather[0].main === "Clouds") {
+                    return "fas fa-cloud-sun";
+                }
+                if (weatherData[i].weather[0].main === "Clear") {
+                    return "fas fa-sun";
+                }
+            }
 
-            if (weatherIcon === "Clouds") {
-                icon = "fas fa-cloud-sun";
-            }
-            if (weatherIcon === "Clear") {
-                icon = "fas fa-sun";
-            }
         }
 
 
-
-        console.log("Icon", weatherIcon)
 
         return (
             <>
@@ -76,7 +71,7 @@ const WeatherCard = () => {
                                 <p>{getDay(index)}</p>
                             </div>
                             <div className="weather_image">
-                                <i className="fas fa-cloud-sun"></i>
+                                <i className={getIcon()}></i>
                             </div>
                             <div className="weather_temperature">
                                 <p>{parseInt(weatherDay.main.temp_max - 273)}° <span>{parseInt(weatherDay.main.temp_min - 273)}°</span></p>
