@@ -11,6 +11,14 @@
     width: 100%;
     background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgb(0, 82, 107) 0%, rgb(0, 45, 59) 90% );
 
+    & .weather_search{
+        & input{
+            margin-top: 1rem;
+            height: 2.5rem;
+            width: 20rem; 
+            padding-left: 1rem; 
+        }
+    }
 
     & .weather_page{
         display: grid;
