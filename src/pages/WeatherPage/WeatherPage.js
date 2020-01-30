@@ -8,7 +8,7 @@ const WeatherPage = () => {
         data: null,
         loading: true
     })
-    const place = "San diego,ve";
+    const place = "new york";
     const fetchData = async () => {
 
         const query = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=4b4754a65698bacce3396cc517e79381`;
@@ -45,7 +45,10 @@ const WeatherPage = () => {
     if (weather.loading === true) {
         return "Loading...";
     }
-    console.log("s", weather.data[0].main)
+
+
+    console.log("page", weather.data[0].main)
+    const weatherData = weather.data;
     return (<>
         <div className="container_page">
             <div className="weather_page">
@@ -54,23 +57,22 @@ const WeatherPage = () => {
                         <p>{weather.dataFull.city.name}, {weather.dataFull.city.country}</p>
                     </div>
                     <div className="weather_date">
-                        <p>{weather.data[0].dt_txt}</p>
+                        <p>{weatherData[0].dt_txt}</p>
                     </div>
                     <div className="weather_weather">
-                        <i className={getIcon(weather.data[0].weather[0].main)}></i>
+                        <i className={getIcon(weatherData[0].weather[0].main)}></i>
                     </div>
                 </div>
                 <div className="weather_right">
                     <div className="weather_max_temp">
-                        <p>{parseInt(weather.data[0].main.temp - 273)}°</p>
+                        <p>{parseInt(weatherData[0].main.temp - 273)}°</p>
                     </div>
                     <div className="weather_min_temp">
-                        <p>{parseInt(weather.data[0].main.temp_min - 273)}°</p>
+                        <p>{parseInt(weatherData[0].main.temp_min - 273)}°</p>
                     </div>
                 </div>
                 <div className="weather_bottom">
-                    .
-                            <WeatherCard />
+                    <WeatherCard data={weatherData} fullData={weather.dataFull} state={weather} />
                 </div>
             </div>
         </div>

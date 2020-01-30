@@ -2,38 +2,13 @@ import React, { useState, useEffect } from 'react';
 import "./WeatherCard.css";
 
 
-const WeatherCard = () => {
+const WeatherCard = (props) => {
 
-    const [weather, setWeather] = useState({
-        data: null,
-        loading: true
-    })
-    const place = "Bucaramanga";
-    const fetchData = async () => {
-
-        const query = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=4b4754a65698bacce3396cc517e79381`;
-        const req = await fetch(query);
-        const data = await req.json();
-        let newState = []
-        for (let i = 0; i < data.list.length; i++) {
-            if (i % 8 === 0) {
-                newState.push(data.list[i]);
-            }
-        }
-
-        setWeather({ data: newState, dataFull: data, loading: false })
-
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, [])
-    console.log(weather.dataFull)
-    if (weather.loading === true) {
+    if (props.state.loading === true) {
         return "Loading...";
     }
-    if (weather.loading === false) {
-        const weatherData = weather.data;
+    if (props.state.loading === false) {
+
         //Date
 
         const getDay = (newDay) => {
@@ -56,12 +31,11 @@ const WeatherCard = () => {
             }
         }
 
-
-
+        console.log("Card", props.fullData);
         return (
             <>
                 <div className="container_card">
-                    {weatherData.map((weatherDay, index) =>
+                    {props.data.map((weatherDay, index) =>
                         <div className="weather_card" key={weatherDay.dt}>
                             <div className="day">
                                 <p>{getDay(index)}</p>
