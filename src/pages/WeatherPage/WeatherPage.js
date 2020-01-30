@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import "./WeatherPage.css";
 import * as moment from 'moment';
+import { CircleLoader } from "react-spinners";
+
 
 
 
 const WeatherPage = () => {
     let now = moment().format('LL');
     const [weather, setWeather] = useState({
-        data: null,
-        loading: true
+        data: {},
+        loading: true,
+        error: null
     })
     const [city, setCity] = useState("madrid");
 
@@ -19,13 +22,18 @@ const WeatherPage = () => {
             const query = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=4b4754a65698bacce3396cc517e79381`;
             const req = await fetch(query);
             const data = await req.json();
-            let newState = []
-            for (let i = 0; i < data.list.length; i++) {
-                if (i % 8 === 0) {
-                    newState.push(data.list[i]);
+            let newState = [];
+            if (data.cod === "200") {
+                for (let i = 0; i < data.list.length; i++) {
+                    if (i % 8 === 0) {
+                        newState.push(data.list[i]);
+                    }
                 }
+
+                setWeather({ data: newState, dataFull: data, loading: false, error: null })
+            } else if (data.cod !== "200") {
+                setWeather({ loading: false, error: true })
             }
-            setWeather({ data: newState, dataFull: data, loading: false })
         }
         fetchData();
     }, [city])
@@ -50,11 +58,36 @@ const WeatherPage = () => {
             setWeather({ loading: true })
         }
     }
+
+    console.log(weather)
+
+    if (weather.loading === false && weather.error === true) {
+        return (
+            <>
+                <div className="container_error">
+                    <p>City Not Found                     {setTimeout(() => {
+                        window.location.reload()
+                    }, 2000)}</p>
+                </div>
+            </>
+        )
+    }
     if (weather.loading === true) {
-        return "Loading...";
+        return (
+            <>
+                <div className="container_loading">
+                    <CircleLoader
+                        size={150}
+                        //size={"150px"} this also works
+                        color={"#fff"}
+                        loading={weather.loading}
+                    />
+                </div>
+            </>
+        )
     }
 
-    if (weather.loading === false) {
+    if (weather.loading === false && weather.error !== true) {
         console.log("page", weather.data[0].main)
         const weatherData = weather.data;
         return (<>
